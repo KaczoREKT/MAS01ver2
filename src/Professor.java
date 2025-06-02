@@ -1,25 +1,19 @@
-import java.util.*;
-
-public class Professor extends ObjectPlus {
+public class Professor extends ObjectPlus{
     private String firstName;
     private String lastName;
     private String title;
-    private static List<String> allTitles = new ArrayList<>(); // klasowy
+    private Address address; // atrybut złożony
 
-    public Professor(String firstName, String lastName, String title) {
+    public Professor(String firstName, String lastName, String title, Address address) {
+        super();
         this.firstName = firstName;
         this.lastName = lastName;
         this.title = title;
-        if(!allTitles.contains(title)) allTitles.add(title);
-        addExtension(Professor.class, this);
+        this.address = address;
     }
 
-    public static List<String> getAllTitles() {
-        return allTitles;
-    }
-
-    @Override
+    @Override // przesłonięcie
     public String toString() {
-        return title + " " + firstName + " " + lastName;
+        return title + " " + firstName + " " + lastName + ", " + address;
     }
 }

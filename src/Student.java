@@ -1,23 +1,23 @@
 import java.util.*;
 
-public class Student extends ObjectPlus {
+public class Student extends ObjectPlus{
     private String firstName;
     private String lastName;
+    private String middleName; // atrybut opcjonalny
     private List<String> emails = new ArrayList<>(); // powtarzalny
-    private Map<Course, Double> grades = new HashMap<>(); // atrybut złożony
+    private Address address; // atrybut złożony
+    private Map<Course, Double> grades = new HashMap<>();
 
-    // atrybut opcjonalny
-    private String middleName;
-
-    public Student(String firstName, String lastName, String middleName) {
+    public Student(String firstName, String lastName, Address address) {
+        super();
         this.firstName = firstName;
         this.lastName = lastName;
-        this.middleName = middleName;
-        addExtension(Student.class, this);
+        this.address = address;
     }
 
-    public Student(String firstName, String lastName) {
-        this(firstName, lastName, null);
+    public Student(String firstName, String lastName, String middleName, Address address) { // przeciążenie
+        this(firstName, lastName, address);
+        this.middleName = middleName;
     }
 
     public void addEmail(String email) {
@@ -28,28 +28,23 @@ public class Student extends ObjectPlus {
         grades.put(course, grade);
     }
 
-    // Atrybut pochodny: średnia ocen
+    // atrybut pochodny (wyliczalny)
     public double getAverageGrade() {
-        if(grades.isEmpty()) return 0.0;
+        if (grades.isEmpty()) return 0.0;
         double sum = 0;
-        for(Double g : grades.values()) sum += g;
+        for (double g : grades.values()) sum += g;
         return sum / grades.size();
     }
 
-    // Przeciążenie metody (dodanie oceny)
-    public void addGrade(Course course, int grade) {
-        addGrade(course, (double) grade);
-    }
-
-    // Przesłonięcie
-    @Override
+    @Override // przesłonięcie
     public String toString() {
         return "Student{" +
-                "firstName='" + firstName + '\'' +
-                (middleName != null ? ", middleName='" + middleName + '\'' : "") +
-                ", lastName='" + lastName + '\'' +
-                ", emails=" + emails +
-                ", averageGrade=" + getAverageGrade() +
+                "imie='" + firstName + '\'' +
+                (middleName != null ? ", drugieImie='" + middleName + '\'' : "") +
+                ", nazwisko='" + lastName + '\'' +
+                ", adres=" + address +
+                ", maile=" + emails +
+                ", srednia=" + getAverageGrade() +
                 '}';
     }
 }

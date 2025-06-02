@@ -1,35 +1,31 @@
+import java.io.Serializable;
 import java.util.*;
 
-public class Course extends ObjectPlus {
+public class Course extends ObjectPlus implements Serializable {
     private String courseName;
     private int ects;
     private String description; // atrybut opcjonalny
-    private Department department;
-    private List<Professor> professors = new ArrayList<>(); // powtarzalny
+    private Set<Professor> professors = new HashSet<>(); // powtarzalny
 
-    public Course(String courseName, int ects, Department department, String description) {
+    public Course(String courseName, int ects, String description) {
+        super();
         this.courseName = courseName;
         this.ects = ects;
-        this.department = department;
         this.description = description;
-        addExtension(Course.class, this);
     }
 
-    public Course(String courseName, int ects, Department department) {
-        this(courseName, ects, department, null);
+    public Course(String courseName, int ects) { // przeciążenie (overloading)
+        this(courseName, ects, null);
     }
 
-    public void addProfessor(Professor prof) {
-        professors.add(prof);
+    public void addProfessor(Professor p) {
+        professors.add(p);
     }
 
-    @Override
+    @Override // przesłonięcie
     public String toString() {
-        return "Course{" +
-                "courseName='" + courseName + '\'' +
-                ", ects=" + ects +
-                ", department=" + department +
-                ", professors=" + professors +
-                '}';
+        return "Course{" + courseName + ", ects=" + ects +
+                (description != null ? ", opis=" + description : "") +
+                ", profesorowie=" + professors.size() + "}";
     }
 }

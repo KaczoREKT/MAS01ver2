@@ -1,15 +1,13 @@
-import java.util.*;
+import java.io.Serializable;
 
-public class Department extends ObjectPlus {
+public class Department extends ObjectPlus implements Serializable {
     private String name;
-    private String building; // atrybut złożony: można zamienić na Address
     private static int numberOfDepartments = 0; // atrybut klasowy
 
-    public Department(String name, String building) {
+    public Department(String name) {
+        super();
         this.name = name;
-        this.building = building;
         numberOfDepartments++;
-        addExtension(Department.class, this);
     }
 
     public static int getNumberOfDepartments() {
@@ -18,6 +16,6 @@ public class Department extends ObjectPlus {
 
     @Override
     public String toString() {
-        return "Department{" + "name='" + name + '\'' + ", building='" + building + '\'' + '}';
+        return "Department{" + "name='" + name + '\'' + '}';
     }
 }
